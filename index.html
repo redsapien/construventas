@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="description" content="Construventas en Línea - Productos de salud con Invima, hogar inteligente, tecnología y herramientas. Pago contra entrega en Colombia.">
+    <meta name="keywords" content="construventas, tienda online colombia, productos con invima, hogar inteligente, herramientas, tecnología">
+    <meta name="author" content="Construventas en Línea">
+    <meta name="theme-color" content="#b91c1c">
+    <title>Construventas | Productos para tu Hogar - Pago Contra Entrega</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b91c1c',
+                        primaryLight: '#dc2626',
+                        primaryDark: '#991b1b',
+                        secondary: '#1f2937',
+                        dark: '#111827',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* ============================================ */
+        /* 🎨 ESTILOS CUSTOM - CONSTRUVENTAS UNIFICADO  */
+        /* ============================================ */
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f9fafb; overflow-x: hidden; }
+        
+        /* 🚄 TOP BAR "TREN BALA" */
+        .marquee-container {
+            background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 50;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marqueeScroll 22s linear infinite;
+            padding: 8px 0;
+        }
+        .marquee-content span {
+            display: inline-block;
+            margin: 0 35px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @media (max-width: 640px) {
+            .marquee-content span { font-size: 0.7rem; margin: 0 18px; }
+            .marquee-content { padding: 6px 0; }
+        }
+        
+        /* 🛡️ NAVBAR GLASSMORPHISM */
+        .navbar-glass {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .logo-img { width: 48px; height: 48px; object-fit: contain; transition: transform 0.2s ease; }
+        .logo-img:hover { transform: scale(1.02); }
+        @media (max-width: 768px) { .logo-img { width: 40px; height: 40px; } }
+        
+        /* Badge Carrito Animado */
+        .cart-badge { transition: all 0.2s ease; }
+        .cart-badge.bump { animation: cartBump 0.3s ease-out; }
+        @keyframes cartBump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 🎬 HERO CON VIDEO */
+        .hero-video-container {
+            position: relative;
+            min-height: 80vh;
+            overflow: hidden;
+        }
+        .hero-background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.7) contrast(1.1) saturate(0.9);
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+        .floating-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+        .floating-icon {
+            position: absolute;
+            animation: floatParallax 25s infinite ease-in-out;
+            font-size: 1.6rem;
+            color: white;
+        }
+        @keyframes floatParallax {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { transform: translateY(-20px) rotate(3deg); opacity: 0.4; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+        }
+        .hero-content { position: relative; z-index: 3; }
+        .hero-title {
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            animation: titleFloat 0.6s ease-out;
+            line-height: 1.2;
+        }
+        @keyframes titleFloat {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 🗂️ POP-UP CATEGORÍAS */
+        .categories-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s ease;
+        }
+        .categories-modal.active { opacity: 1; visibility: visible; }
+        .modal-content { max-width: 850px; width: 90%; animation: modalSlideUp 0.4s ease-out; }
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .category-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(185, 28, 28, 0.5);
+        }
+        
+        /* 🛍️ TARJETAS DE PRODUCTO PREMIUM */
+        .product-card {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #b91c1c;
+        }
+        .img-container { overflow: hidden; border-radius: 16px; position: relative; }
+        .product-img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .product-card:hover .product-img { transform: scale(1.1); }
+        
+        /* 📋 BARRA DE CATEGORÍAS STICKY */
+        .categories-sticky {
+            position: sticky;
+            top: 68px;
+            z-index: 40;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        @media (max-width: 768px) { .categories-sticky { top: 60px; } }
+        
+        .cat-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            white-space: nowrap;
+            color: #1f2937;
+        }
+        .cat-btn.active { background: #b91c1c; color: white; border-color: #b91c1c; }
+        .cat-btn:hover:not(.active) { background: #f3f4f6; }
+        
+        /* 🛒 DRAWER OSCURO PROFESIONAL */
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            background: #1f2937;
+            z-index: 1001;
+            transition: 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.3);
+        }
+        .drawer.active { right: 0; }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            z-index: 1000;
+        }
+        .overlay.active { display: block; }
+        
+        .drawer-input {
+            background: #374151;
+            border: 1px solid #4b5563;
+            color: white;
+        }
+        .drawer-input:focus {
+            border-color: #10b981;
+            outline: none;
+            ring: 2px solid #10b981;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 💬 WHATSAPP FLOTANTE */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: #25D366;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+            transition: all 0.25s ease;
+            animation: pulseWa 1.8s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.08); }
+        @keyframes pulseWa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        @media (max-width: 768px) {
+            .whatsapp-float { width: 48px; height: 48px; bottom: 20px; right: 20px; }
+        }
+        
+        /* Botón Explorar */
+        .btn-explore {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(185, 28, 28, 0.3);
+        }
+        .btn-explore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(185, 28, 28, 0.4);
+        }
+        
+        .scroll-indicator { animation: bounce 1.8s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-video-container { min-height: 70vh; }
+            .hero-title { font-size: 2rem; }
+            .floating-icon { font-size: 1rem; opacity: 0.15; }
+        }
+        @media (max-width: 480px) { .hero-title { font-size: 1.6rem; } }
+        
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- 🚄 TOP BAR "TREN BALA"                       -->
+<!-- ============================================ -->
+<div class="marquee-container">
+    <div class="marquee-content">
+        <span>🚀 Envíos a toda Colombia</span>
+        <span>🤝 Pago contra entrega: Pagas al recibir</span>
+        <span>⭐ Calidad y precios justos</span>
+        <span>🔒 Compra 100% segura</span>
+        <span>📍 Despachos desde Marinilla, Antioquia</span>
+        <span>✅ Productos con registro Invima</span>
+        <span>🚀 Envíos a toda Colombia</span>
+        <span>🤝 Pago contra entrega: Pagas al recibir</span>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 🛡️ NAVBAR PRINCIPAL                          -->
+<!-- ============================================ -->
+<nav class="navbar-glass sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-2.5 md:py-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 md:gap-3">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-xl flex items-center justify-center shadow-md">
+                    <i class="fas fa-hard-hat text-white text-xl md:text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight">
+                        <span class="text-gray-800">Constru</span>
+                        <span class="text-primary">ventas</span>
+                    </h1>
+                    <p class="text-[9px] md:text-[10px] text-gray-400 -mt-0.5">En Línea</p>
+                </div>
+            </div>
+            <div class="relative">
+                <button id="cart-button" class="relative bg-gray-100 hover:bg-gray-200 p-2 md:p-2.5 rounded-full transition">
+                    <i class="fas fa-shopping-cart text-gray-700 text-lg md:text-xl"></i>
+                    <span id="cart-count" class="cart-badge absolute -top-1 -right-1 bg-primary text-white text-[10px] md:text-xs font-bold rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================================ -->
+<!-- 🎬 HERO CON VIDEO                            -->
+<!-- ============================================ -->
+<section class="hero-video-container">
+    <video class="hero-background-video" autoplay loop muted playsinline>
+        <source src="Videos/Construventas.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="floating-pattern">
+        <i class="fas fa-home floating-icon" style="top: 12%; left: 8%;"></i>
+        <i class="fas fa-tools floating-icon" style="top: 75%; left: 12%; animation-delay: -3s;"></i>
+        <i class="fas fa-microchip floating-icon" style="top: 20%; right: 10%; animation-delay: -1s;"></i>
+        <i class="fas fa-heartbeat floating-icon" style="bottom: 25%; right: 18%;"></i>
+        <i class="fas fa-lightbulb floating-icon" style="top: 50%; left: 20%;"></i>
+    </div>
+    <div class="hero-content relative z-10 flex items-center justify-center min-h-[80vh]">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h1 class="hero-title text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4">
+                Dale Vida a tu Hogar
+            </h1>
+            <p class="text-sm md:text-base text-gray-200 max-w-2xl mx-auto mb-6">
+                Salud con Invima, Hogar Inteligente, Tecnología y Herramientas.
+                <strong class="text-primaryLight">¡Pides hoy, pagas al recibir!</strong> Envíos a toda Colombia.
+            </p>
+            <button id="open-categories-modal" class="btn-explore px-6 py-3 md:px-8 md:py-3.5 rounded-xl text-white font-semibold text-sm md:text-base inline-flex items-center gap-2">
+                <i class="fas fa-store"></i> Explorar Catálogo
+                <i class="fas fa-arrow-right text-xs"></i>
+            </button>
+            <div class="scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2">
+                <i class="fas fa-chevron-down text-white/50 text-lg"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 🗂️ MODAL DE CATEGORÍAS                       -->
+<!-- ============================================ -->
+<div id="categories-modal" class="categories-modal">
+    <div class="modal-content">
+        <div class="flex justify-between items-center mb-6 md:mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-white"><i class="fas fa-th-large text-primaryLight mr-2"></i>Categorías</h2>
+            <button id="close-modal" class="text-white/60 hover:text-white text-2xl">&times;</button>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+            <div data-category="salud" class="category-card rounded-xl p-4 md:p-5 text-center cursor-pointer">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-heartbeat text-primaryLight text-xl md:text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm md:text-base mb-1">Salud</h3>
+                <p class="text-gray-400 text-[10px] md:text-xs">Registro Invima</p>
+            </div>
+            <div data-category="hogar" class="category-card rounded-xl p-4 md:p-5 text-center cursor-pointer">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-home text-primaryLight text-xl md:text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm md:text-base mb-1">Hogar</h3>
+                <p class="text-gray-400 text-[10px] md:text-xs">Inteligente</p>
+            </div>
+            <div data-category="tecnologia" class="category-card rounded-xl p-4 md:p-5 text-center cursor-pointer">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-microchip text-primaryLight text-xl md:text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm md:text-base mb-1">Tecnología</h3>
+                <p class="text-gray-400 text-[10px] md:text-xs">Gadgets</p>
+            </div>
+            <div data-category="herramientas" class="category-card rounded-xl p-4 md:p-5 text-center cursor-pointer">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-tools text-primaryLight text-xl md:text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm md:text-base mb-1">Herramientas</h3>
+                <p class="text-gray-400 text-[10px] md:text-xs">Profesionales</p>
+            </div>
+        </div>
+        <p class="text-center text-gray-500 text-[11px] md:text-xs mt-6"><i class="fas fa-hand-pointer mr-1"></i> Haz clic en cualquier categoría</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 📋 BARRA DE CATEGORÍAS STICKY                -->
+<!-- ============================================ -->
+<div class="categories-sticky">
+    <div class="container mx-auto px-4">
+        <div class="flex overflow-x-auto no-scrollbar gap-1 py-3 md:py-4" id="category-filters">
+            <button data-cat="all" class="cat-btn active">Todas</button>
+            <button data-cat="salud" class="cat-btn">Salud</button>
+            <button data-cat="hogar" class="cat-btn">Hogar</button>
+            <button data-cat="tecnologia" class="cat-btn">Tecnología</button>
+            <button data-cat="herramientas" class="cat-btn">Herramientas</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 🛍️ GRID DE PRODUCTOS                         -->
+<!-- ============================================ -->
+<section class="py-12 bg-white" id="tienda">
+    <div class="container mx-auto px-4">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"></div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 🛒 DRAWER DE CHECKOUT (OSCURO PREMIUM)       -->
+<!-- ============================================ -->
+<div class="overlay" id="overlay" onclick="toggleDrawer()"></div>
+<div class="drawer p-6 flex flex-col" id="drawer">
+    <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
+        <h2 class="text-2xl font-bold text-white"><i class="fas fa-shopping-cart text-primaryLight mr-2"></i>MI PEDIDO</h2>
+        <button onclick="toggleDrawer()" class="text-3xl text-gray-400 hover:text-white">&times;</button>
+    </div>
+    <div id="cart-items" class="flex-grow overflow-y-auto space-y-4 pr-1"></div>
+    <div class="border-t border-gray-700 pt-4 mt-4">
+        <div class="flex justify-between text-2xl font-bold mb-6">
+            <span class="text-white">Total:</span>
+            <span id="cart-total" class="text-primaryLight">$0</span>
+        </div>
+        <form id="orderForm" class="space-y-4">
+            <div class="relative">
+                <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="nombre" placeholder="Nombre y Apellido" required class="drawer-input w-full p-4 pl-11 rounded-xl border focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <div class="relative">
+                <i class="fab fa-whatsapp absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="tel" id="telefono" placeholder="WhatsApp (10 dígitos)" required class="drawer-input w-full p-4 pl-11 rounded-xl border focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <div class="relative">
+                <i class="fas fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="direccion" placeholder="Dirección, Ciudad y Barrio" required class="drawer-input w-full p-4 pl-11 rounded-xl border focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-3">
+                <i class="fab fa-whatsapp text-xl"></i> FINALIZAR POR WHATSAPP
+            </button>
+        </form>
+        <p class="text-center text-xs text-gray-400 mt-4">💵 Pagas en efectivo al recibir tu producto</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 💬 WHATSAPP FLOTANTE                         -->
+<!-- ============================================ -->
+<a href="https://wa.me/573235236954?text=Hola%20Construventas,%20vengo%20de%20la%20tienda%20web" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp text-white text-xl md:text-2xl"></i>
+</a>
+
+<script>
+// ============================================ //
+// 📦 PRODUCTOS - 16 UNIDADES (4 x categoría)   //
+// ============================================ //
+const products = [
+    // SALUD
+    { id: 1, cat: 'salud', name: 'Ashwagandha KSM66', price: 135000, img: 'Imagenes/Ashwagandha.png', desc: 'Certificado KSM-66 Original. 100 Softgels para reducir el estrés, mejorar el sueño y potenciar tu energía vital diaria con registro Invima.' },
+    { id: 2, cat: 'salud', name: 'Omega 3 + Glucosamina', price: 199900, img: 'Imagenes/Omega3.png', desc: 'Combo potente para salud articular y cardiovascular. Incluye 3 tarros de alta concentración. Ideal para deportistas y adultos mayores.' },
+    { id: 3, cat: 'salud', name: 'Shilajit Himalayan', price: 110000, img: 'Imagenes/Shilajit.png', desc: 'Resina pura del Himalaya enriquecida con ácido fúlvico. Mejora el rendimiento físico y mental. Incluye jarabe X-Bull de obsequio.' },
+    { id: 4, cat: 'salud', name: 'Vitamina D3 Invima', price: 135000, img: 'Imagenes/VitaminaD.png', desc: 'Fortalece tu sistema inmunológico y óseo con nuestra Vitamina D3 de alta absorción. Pack promocional de 2 unidades con envío gratis.' },
+    // HOGAR
+    { id: 5, cat: 'hogar', name: 'Aire Acondicionado Pro', price: 190000, img: 'Imagenes/Aireacondicionado.png', desc: 'Enfriador portátil Premium. Bajo consumo energético, silencioso y con 3 niveles de potencia. Refresca tu habitación en minutos.' },
+    { id: 6, cat: 'hogar', name: 'Zapatero 10 Niveles', price: 132000, img: 'Imagenes/ZapateroDe10Niveles.png', desc: 'Organizador gigante para hasta 30 pares. Estructura reforzada de fácil armado. Ahorra espacio y mantén tus zapatos impecables.' },
+    { id: 7, cat: 'hogar', name: 'Lavadora Portátil 8L', price: 120000, img: 'Imagenes/Lavadoraportatil.png', desc: 'Mini lavadora ultrasónica plegable. Perfecta para ropa delicada, viajes o apartamentos pequeños. Sistema de centrifugado incluido.' },
+    { id: 8, cat: 'hogar', name: 'Platero Multifuncional', price: 94000, img: 'Imagenes/Platero.png', desc: 'Escurridor de loza en acero inoxidable con múltiples compartimientos. Diseño moderno que optimiza el espacio de tu cocina.' },
+    // TECNOLOGIA
+    { id: 9, cat: 'tecnologia', name: 'Fire TV Stick 4K', price: 185000, img: 'Imagenes/Fire-Stick.png', desc: 'Convierte tu TV en Smart con la máxima velocidad. Control por voz Alexa, compatible con Netflix, Disney+, YouTube y miles de Apps.' },
+    { id: 10, cat: 'tecnologia', name: 'Robot Aspirador 3 en 1', price: 99000, img: 'Imagenes/Robot-Aspi.png', desc: 'Barre, aspira y trapea de forma automática. Sensores inteligentes anti-caída y diseño ultra delgado para limpiar bajo los muebles.' },
+    { id: 11, cat: 'tecnologia', name: 'Intercomunicador Moto', price: 99000, img: 'Imagenes/Inter-comunicador.png', desc: 'Bluetooth para casco con cancelación de ruido. Responde llamadas y escucha GPS mientras conduces. Resistente al agua y lluvia.' },
+    { id: 12, cat: 'tecnologia', name: 'Luces LED RGB 5M', price: 65000, img: 'Imagenes/Luces-led.png', desc: 'Cinta LED controlada por App y control remoto. Millones de colores, modo rítmico que baila con la música. Ideal para gamers.' },
+    // HERRAMIENTAS
+    { id: 13, cat: 'herramientas', name: 'Soldador Inversor 275A', price: 390000, img: 'Imagenes/Soldador.png', desc: 'Mini soldadora profesional MMA. Tecnología IGBT, incluye careta, cables y estuche rígido. Potente, ligera y fácil de transportar.' },
+    { id: 14, cat: 'herramientas', name: 'Taladro Percutor 18V', price: 200000, img: 'Imagenes/Taladro.png', desc: 'Inalámbrico con 2 baterías de litio. Mandril de acero y kit de 24 accesorios. Ideal para trabajos pesados en concreto y madera.' },
+    { id: 15, cat: 'herramientas', name: 'Motosierra Max Power', price: 399900, img: 'Imagenes/Motosierra.png', desc: 'Motor a gasolina de alto rendimiento. Espada de 20 pulgadas para cortes precisos en troncos grandes. Incluye kit de protección.' },
+    { id: 16, cat: 'herramientas', name: 'Set Herramientas 41 Pzs', price: 70000, img: 'Imagenes/Set-Herramientas.png', desc: 'Maletín completo con destornilladores de precisión y copas en Cromo Vanadio. El kit esencial que no puede faltar en tu hogar o carro.' }
+];
+
+// ============================================ //
+// 🛒 ESTADO DEL CARRITO                        //
+// ============================================ //
+let cart = [];
+
+function updateCartUI() {
+    const container = document.getElementById('cart-items');
+    const countLabel = document.getElementById('cart-count');
+    const totalLabel = document.getElementById('cart-total');
+    
+    if (!container) return;
+    
+    let total = 0;
+    container.innerHTML = '';
+    
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        container.innerHTML += `
+            <div class="flex items-center gap-4 bg-gray-800 p-4 rounded-2xl border border-gray-700">
+                <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl">
+                <div class="flex-grow">
+                    <h4 class="font-bold text-sm text-white">${item.name}</h4>
+                    <p class="text-primaryLight font-bold">$${item.price.toLocaleString()}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button onclick="updateQuantity(${index}, -1)" class="w-6 h-6 rounded-full bg-gray-700 hover:bg-gray-600 text-white">-</button>
+                        <span class="text-white text-sm w-6 text-center">${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)" class="w-6 h-6 rounded-full bg-gray-700 hover:bg-gray-600 text-white">+</button>
+                    </div>
+                </div>
+                <button onclick="removeItem(${index})" class="text-gray-500 hover:text-red-500 text-xl">&times;</button>
+            </div>
+        `;
+    });
+    
+    if (countLabel) countLabel.innerText = cart.reduce((sum, i) => sum + i.quantity, 0);
+    if (totalLabel) totalLabel.innerText = '$' + total.toLocaleString();
+    
+    // Animación bounce en el badge
+    if (countLabel) {
+        countLabel.classList.add('bump');
+        setTimeout(() => countLabel.classList.remove('bump'), 300);
+    }
+}
+
+function updateQuantity(index, change) {
+    if (cart[index]) {
+        const newQty = cart[index].quantity + change;
+        if (newQty <= 0) {
+            cart.splice(index, 1);
+        } else {
+            cart[index].quantity = newQty;
+        }
+        updateCartUI();
+        saveCartToLocal();
+    }
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+    saveCartToLocal();
+}
+
+function saveCartToLocal() {
+    localStorage.setItem('construventas_cart', JSON.stringify(cart));
+}
+
+function loadCartFromLocal() {
+    const saved = localStorage.getItem('construventas_cart');
+    if (saved) {
+        cart = JSON.parse(saved);
+        updateCartUI();
+    }
+}
+
+function addToCart(product) {
+    const existing = cart.find(item => item.id === product.id);
+    if (existing) {
+        existing.quantity++;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+    updateCartUI();
+    saveCartToLocal();
+    showNotification('✅ ' + product.name + ' agregado al carrito');
+    
+    // Animación en el botón del carrito
+    const cartBtn = document.getElementById('cart-button');
+    if (cartBtn) {
+        cartBtn.classList.add('bump');
+        setTimeout(() => cartBtn.classList.remove('bump'), 300);
+    }
+}
+
+function showNotification(msg) {
+    const notif = document.createElement('div');
+    notif.className = 'fixed top-20 right-4 bg-gray-800 text-white px-4 py-3 rounded-xl shadow-xl z-50 text-sm flex items-center gap-2';
+    notif.innerHTML = `<i class="fas fa-check-circle text-green-500"></i>${msg}`;
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 2500);
+}
+
+// ============================================ //
+// 🎨 RENDERIZADO DE PRODUCTOS                  //
+// ============================================ //
+function renderProducts(filter = 'all') {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    
+    const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+    grid.innerHTML = filtered.map(p => `
+        <div class="product-card rounded-2xl p-4 md:p-5">
+            <div class="img-container mb-4">
+                <img src="${p.img}" alt="${p.name}" class="product-img rounded-xl">
+                <div class="absolute top-3 left-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase shadow-md">Envío Gratis</div>
+            </div>
+            <div class="flex-grow">
+                <h3 class="text-lg md:text-xl font-extrabold text-gray-900 mb-2">${p.name}</h3>
+                <p class="text-sm text-gray-600 mb-4 line-clamp-3">${p.desc}</p>
+            </div>
+            <div class="mt-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xl md:text-2xl font-black text-primary">$${p.price.toLocaleString()}</span>
+                    <span class="text-[10px] text-gray-500 font-bold uppercase bg-white px-2 py-1 rounded-full">Pago Contraentrega</span>
+                </div>
+                <button onclick="addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})" class="w-full bg-primary hover:bg-primaryDark text-white py-3 md:py-4 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                    <i class="fas fa-cart-plus"></i> AGREGAR AL PEDIDO
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ============================================ //
+// 🔍 FILTROS Y NAVEGACIÓN                      //
+// ============================================ //
+function setupFilters() {
+    const filterBtns = document.querySelectorAll('.cat-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts(btn.dataset.cat);
+            document.getElementById('tienda').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+}
+
+function setupModalFilters() {
+    const modalCards = document.querySelectorAll('.category-card');
+    modalCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.dataset.category;
+            const filterBtn = document.querySelector(`.cat-btn[data-cat="${category}"]`);
+            if (filterBtn) filterBtn.click();
+            closeModal();
+        });
+    });
+}
+
+// ============================================ //
+// 🛒 DRAWER                                    //
+// ============================================ //
+function toggleDrawer() {
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    if (drawer && overlay) {
+        drawer.classList.toggle('active');
+        overlay.classList.toggle('active');
+        if (drawer.classList.contains('active')) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = '';
+    }
+}
+
+// ============================================ //
+// 📱 WHATSAPP CHECKOUT                         //
+// ============================================ //
+function setupCheckout() {
+    const form = document.getElementById('orderForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (cart.length === 0) return alert('🛒 Tu carrito está vacío');
+        
+        const nombre = document.getElementById('nombre')?.value.trim();
+        const telefono = document.getElementById('telefono')?.value.trim();
+        const direccion = document.getElementById('direccion')?.value.trim();
+        
+        if (!nombre || !telefono || !direccion) return alert('❌ Por favor completa todos los campos');
+        
+        let total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        let mensaje = `*NUEVO PEDIDO - CONSTRUVENTAS*%0A`;
+        mensaje += `----------------------------%0A`;
+        mensaje += `👤 *Cliente:* ${nombre}%0A`;
+        mensaje += `📞 *WhatsApp:* ${telefono}%0A`;
+        mensaje += `📍 *Dirección:* ${direccion}%0A`;
+        mensaje += `----------------------------%0A`;
+        mensaje += `📦 *PRODUCTOS:*%0A`;
+        
+        cart.forEach(item => {
+            mensaje += `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toLocaleString()}%0A`;
+        });
+        
+        mensaje += `----------------------------%0A`;
+        mensaje += `💰 *TOTAL:* $${total.toLocaleString()}%0A`;
+        mensaje += `💵 *PAGO:* Contra entrega al recibir%0A`;
+        mensaje += `----------------------------%0A`;
+        mensaje += `✅ *Pedido desde tienda web Construventas*`;
+        
+        window.open(`https://wa.me/573235236954?text=${mensaje}`, '_blank');
+        
+        // Limpiar carrito después del pedido
+        cart = [];
+        updateCartUI();
+        saveCartToLocal();
+        toggleDrawer();
+        showNotification('✅ Pedido enviado. Te contactaremos pronto');
+    });
+}
+
+// ============================================ //
+// 🎬 MODAL DE CATEGORÍAS                       //
+// ============================================ //
+const modal = document.getElementById('categories-modal');
+const openModalBtn = document.getElementById('open-categories-modal');
+const closeModalBtn = document.getElementById('close-modal');
+
+function openModal() {
+    if (modal) modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+    if (modal) modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+// ============================================ //
+// 🚀 INICIALIZACIÓN                            //
+// ============================================ //
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    setupFilters();
+    setupModalFilters();
+    setupCheckout();
+    loadCartFromLocal();
+    
+    const cartIcon = document.getElementById('cart-button');
+    if (cartIcon) cartIcon.addEventListener('click', toggleDrawer);
+    
+    console.log('🚀 Construventas - Tienda Unificada Lista');
+    console.log(`📦 ${products.length} productos cargados`);
+});
+
+window.toggleDrawer = toggleDrawer;
+window.addToCart = addToCart;
+window.updateQuantity = updateQuantity;
+window.removeItem = removeItem;
+</script>
+<section id="autoridad-seccion" class="relative overflow-hidden bg-[#0d0d0d] pt-24 pb-32 border-t border-white/5">
+    
+    <canvas id="tech-canvas" class="absolute inset-0 z-0 opacity-30 pointer-events-none"></canvas>
+    
+    <div class="absolute inset-0 z-0 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-primary/10 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="max-w-5xl mb-20 reveal-on-scroll">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-xl">
+                <span class="flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-primary opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                </span>
+                <span class="text-[11px] font-black tracking-[0.4em] text-gray-300 uppercase italic">Hecho por gente como tú</span>
+            </div>
+            
+            <h2 class="text-5xl md:text-8xl font-black text-white leading-[0.85] tracking-[ -0.05em] text-left md:-rotate-1 origin-left uppercase">
+                SIN TANTO <span class="text-primary italic">CUENTO,</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white/20">SOLO CALIDAD.</span>
+            </h2>
+            
+            <p class="mt-10 text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl text-left border-l-4 border-primary pl-8">
+                En <strong>Construventas</strong> no te embolatamos la vida. Desde nuestra bodega en <span class="text-white font-bold">Marinilla</span>, te mandamos lo último en tecnología con el respaldo que te mereces. <span class="text-white/80 italic text-base block mt-2">Si no es una chimba, no te lo vendemos. Punto.</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <div class="md:col-span-8 group relative p-10 bg-[#161616]/50 backdrop-blur-md rounded-[2.5rem] overflow-hidden reveal-on-scroll border border-white/10 transition-all duration-500 hover:border-primary/50 card-glow">
+                <div class="relative z-10">
+                    <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(185,28,28,0.4)]">
+                        <i class="fas fa-bolt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tighter italic">Cuidamos tu bolsillo</h3>
+                    <p class="text-gray-400 text-base leading-relaxed mb-8 max-w-lg">
+                        Sabemos que te esfuerzas por lo tuyo. Por eso, cada gadget tiene nuestro <strong>Sello de Calidad</strong>. Olvídate de copias baratas; aquí traemos tecnología que de verdad te soluciona las vueltas en casa.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="text-[10px] font-black text-white bg-white/5 border border-white/10 px-4 py-2 rounded-lg uppercase tracking-widest">Originalidad Total</span>
+                        <span class="text-[10px] font-black text-white bg-white/5 border border-white/10 px-4 py-2 rounded-lg uppercase tracking-widest">Garantía Real</span>
+                    </div>
+                </div>
+                <div class="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition duration-300 glow-effect" style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(185,28,28,0.15), transparent 40%);"></div>
+            </div>
+
+            <div class="md:col-span-4 p-10 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-[2.5rem] flex flex-col justify-between reveal-on-scroll border border-white/10 shadow-2xl relative overflow-hidden group">
+                <div class="relative z-10">
+                    <h3 class="text-xl font-black text-white mb-3 uppercase italic">¿Dudas?</h3>
+                    <p class="text-gray-500 text-sm leading-snug">Escríbenos de una. Estamos listos para asesorarte en lo que necesites.</p>
+                </div>
+                
+                <a href="https://wa.me/573235236954" class="relative z-10 mt-10 flex items-center justify-center gap-3 py-4 px-6 bg-[#25D366] text-black font-black text-xs rounded-2xl transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.3)] uppercase tracking-tighter">
+                    <i class="fab fa-whatsapp text-xl"></i> Hablar con Construventas
+                </a>
+                
+                <div class="absolute -right-10 -bottom-10 opacity-5 group-hover:opacity-10 transition-opacity duration-700">
+                    <i class="fab fa-whatsapp text-[150px] text-white"></i>
+                </div>
+            </div>
+
+            <div class="md:col-span-4 p-8 bg-white/[0.02] border border-white/5 rounded-3xl reveal-on-scroll group hover:bg-white/[0.04] transition-all">
+                <div class="text-primary text-2xl mb-4 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-box-open"></i></div>
+                <h4 class="text-sm font-black text-gray-200 mb-2 uppercase italic tracking-wider">Envío Seguro</h4>
+                <p class="text-gray-500 text-[12px] leading-tight">Llegamos a cada rincón de Colombia. Rápido y sin tanto enredo.</p>
+            </div>
+
+            <div class="md:col-span-4 p-8 bg-white/[0.02] border border-white/5 rounded-3xl reveal-on-scroll group hover:bg-white/[0.04] transition-all">
+                <div class="text-blue-500 text-2xl mb-4 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-hand-holding-dollar"></i></div>
+                <h4 class="text-sm font-black text-gray-200 mb-2 uppercase italic tracking-wider">Paga al recibir</h4>
+                <p class="text-gray-500 text-[12px] leading-tight">Cero riesgos para ti. Primero recibes tu paquete y luego sueltas la plata.</p>
+            </div>
+
+            <div class="md:col-span-4 p-8 bg-white/[0.02] border border-white/5 rounded-3xl reveal-on-scroll group hover:bg-white/[0.04] transition-all">
+                <div class="text-orange-500 text-2xl mb-4 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-shield-alt"></i></div>
+                <h4 class="text-sm font-black text-gray-200 mb-2 uppercase italic tracking-wider">Respaldo Total</h4>
+                <p class="text-gray-500 text-[12px] leading-tight">Si algo sale mal, te respondemos de inmediato. No te dejamos solo.</p>
+            </div>
+        </div>
+
+        <div class="mt-24 text-center reveal-on-scroll">
+            <button id="cta-regresar-tienda" class="group relative px-12 py-5 bg-transparent overflow-hidden rounded-full border border-white/20 transition-all duration-500 hover:border-primary">
+                <div class="absolute inset-0 bg-primary translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500"></div>
+                <span class="relative z-10 text-white font-black text-[11px] uppercase tracking-[0.5em] group-hover:text-white">Volver al catálogo</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .reveal-on-scroll.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .hide-categories-bar {
+        transform: translateY(-120%) !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Estilo de la tarjeta para el efecto de luz */
+    .card-glow { position: relative; }
+</style>
+
+<script>
+    (function() {
+        // --- EFECTO MOUSE GLOW ---
+        const cards = document.querySelectorAll('.card-glow');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // --- FONDO TECH OPTIMIZADO ---
+        const canvas = document.getElementById('tech-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+
+        function createParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 20 : 60;
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 1.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(185, 28, 28, 0.4)";
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (d < 130) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => { resize(); createParticles(); });
+        resize(); createParticles(); draw();
+
+        // --- LÓGICA DE BARRA Y REVELADO ---
+        const autoridadSec = document.getElementById('autoridad-seccion');
+        const categoriesBar = document.getElementById('sticky-categories') || document.querySelector('.sticky-nav-categories');
+
+        const authorityObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (categoriesBar) categoriesBar.classList.add('hide-categories-bar');
+                } else {
+                    if (categoriesBar) categoriesBar.classList.remove('hide-categories-bar');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        authorityObserver.observe(autoridadSec);
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => authorityObserver.observe(el));
+
+        // --- BOTÓN REGRESAR ---
+        document.getElementById('cta-regresar-tienda')?.addEventListener('click', () => {
+            document.getElementById('tienda')?.scrollIntoView({ behavior: 'smooth' });
+        });
+    })();
+</script>
+<section id="hub-asesoria-vip" class="relative overflow-hidden bg-[#050505] py-20 border-t border-white/10">
+    <div id="domotica-scan" class="fixed inset-0 z-[100] pointer-events-none opacity-0">
+        <div class="absolute inset-0 bg-primary/5"></div>
+        <div class="scan-line"></div>
+    </div>
+    
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none animate-pulse"></div>
+    <div class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col items-end text-right mb-12">
+            <p class="text-primary font-bold text-[10px] uppercase tracking-[0.4em] mb-3 md:rotate-1 bg-primary/10 px-3 py-1.5 rounded-md inline-block">
+                Hablemos de tu próximo nivel
+            </p>
+            <h2 class="text-4xl md:text-7xl font-black text-white leading-[0.85] tracking-tighter italic uppercase md:-rotate-1">
+                ¿TE AYUDO A <br> <span class="text-transparent bg-clip-text bg-gradient-to-l from-primary via-white to-primary">ELEGIR?</span>
+            </h2>
+        </div>
+
+        <div class="flex flex-col lg:flex-row-reverse gap-10 items-center">
+            
+            <div class="w-full lg:w-6/12">
+                <div class="relative p-[1px] rounded-[2.5rem] bg-gradient-to-br from-white/20 via-transparent to-primary/40">
+                    <form id="form-crm-construventas" class="relative bg-[#0a0a0a] p-8 md:p-10 rounded-[2.5rem] shadow-2xl overflow-hidden">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="relative group">
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">¿Cómo te llamas?</label>
+                                <input type="text" id="field-name" required placeholder="Tu nombre aquí" 
+                                    class="w-full bg-white/[0.02] border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-primary transition-all placeholder:text-gray-700">
+                            </div>
+
+                            <div class="relative group">
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Tu WhatsApp personal</label>
+                                <input type="tel" id="field-phone" required placeholder="Número de contacto" 
+                                    class="w-full bg-white/[0.02] border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-primary transition-all placeholder:text-gray-700">
+                            </div>
+
+                            <div class="relative group md:col-span-2">
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">¿Desde qué ciudad nos escribes?</label>
+                                <input type="text" id="field-city" required placeholder="Ej: Medellín, Bogotá..." 
+                                    class="w-full bg-white/[0.02] border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-primary transition-all placeholder:text-gray-700">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full mt-8 group relative flex items-center justify-center gap-3 py-4 bg-primary rounded-xl overflow-hidden transition-all duration-500 hover:brightness-125 active:scale-95">
+                            <span class="relative z-10 text-white font-black uppercase italic tracking-widest text-xs">Enviar y chatear ahora</span>
+                            <i class="fas fa-bolt relative z-10 text-white text-xs"></i>
+                        </button>
+
+                        <div id="status-connecting" class="hidden absolute inset-0 bg-[#0a0a0a]/98 z-30 flex-col items-center justify-center backdrop-blur-md">
+                            <div class="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                            <p class="mt-4 text-white font-bold text-[10px] uppercase tracking-widest animate-pulse">Enlazando con un experto...</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-6/12 grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="benefit-card p-6 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:border-primary/40 transition-all duration-500">
+                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-4">
+                        <i class="fas fa-user-shield text-lg"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm mb-2 italic">Asesoría Humana</h4>
+                    <p class="text-gray-500 text-[11px] leading-relaxed">Cero bots. Hablarás con alguien que conoce cada producto a fondo.</p>
+                </div>
+
+                <div class="benefit-card p-6 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:border-blue-500/40 transition-all duration-500">
+                    <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500 mb-4">
+                        <i class="fas fa-truck-fast text-lg"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm mb-2 italic">Logística Pro</h4>
+                    <p class="text-gray-500 text-[11px] leading-relaxed">Te ayudamos a rastrear tu pedido y asegurar el pago contra entrega.</p>
+                </div>
+
+                <div class="benefit-card md:col-span-2 p-6 rounded-2xl bg-[#0e0e0e] border-l-4 border-primary/50 flex items-center gap-5 hover:bg-[#121212] transition-colors">
+                    <div class="text-2xl text-primary/80"><i class="fas fa-house-signal"></i></div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm italic uppercase tracking-tighter">Ecosistema Construventas</h4>
+                        <p class="text-gray-400 text-[11px]">Garantía real y soporte técnico post-venta incluido.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Efecto Laser Scan */
+    .scan-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #b91c1c, transparent);
+        box-shadow: 0 0 20px #b91c1c;
+        top: -10%;
+        left: 0;
+        z-index: 101;
+    }
+    .anim-scan .scan-line { animation: scanMove 1.8s ease-in-out infinite; }
+    @keyframes scanMove {
+        0% { top: -5%; opacity: 0; }
+        30% { opacity: 1; }
+        70% { opacity: 1; }
+        100% { top: 105%; opacity: 0; }
+    }
+    .anim-scan { opacity: 1 !important; transition: opacity 0.5s ease; }
+
+    /* Estilo de Tarjetas */
+    .benefit-card {
+        backdrop-filter: blur(5px);
+    }
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05);
+    }
+</style>
+
+<script>
+    (function() {
+        const crmForm = document.getElementById('form-crm-construventas');
+        const scanOverlay = document.getElementById('domotica-scan');
+        const statusNode = document.getElementById('status-connecting');
+
+        if(crmForm) {
+            crmForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('field-name').value;
+                const phone = document.getElementById('field-phone').value;
+                const city = document.getElementById('field-city').value;
+
+                // Activar Efecto Visual
+                scanOverlay.classList.add('anim-scan');
+                statusNode.classList.remove('hidden');
+                statusNode.classList.add('flex');
+
+                const msg = `🚀 *ASESORÍA PERSONALIZADA*%0A%0A` +
+                            `*Cliente:* ${name}%0A` +
+                            `*WhatsApp:* ${phone}%0A` +
+                            `*Ciudad:* ${city}%0A%0A` +
+                            `Vengo de la tienda y necesito ayuda con mi compra. 🛒`;
+                
+                setTimeout(() => {
+                    window.location.href = `https://wa.me/573235236954?text=${msg}`;
+                    setTimeout(() => {
+                        scanOverlay.classList.remove('anim-scan');
+                        statusNode.classList.add('hidden');
+                        crmForm.reset();
+                    }, 1000);
+                }, 2200);
+            });
+        }
+    })();
+</script>
+<section id="testimonios-vip" class="relative bg-[#f8f9fa] py-24 overflow-hidden">
+    
+    <div class="absolute top-0 left-0 w-full overflow-hidden rotate-180 bg-[#050505]">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-16 fill-[#f8f9fa]">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+        </svg>
+    </div>
+
+    <div class="container mx-auto px-6 mb-16 relative z-10">
+        <div class="max-w-3xl">
+            <p class="text-primary font-bold text-xs uppercase tracking-widest mb-2">Comunidad Construventas</p>
+            <h2 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">
+                Lo que dicen <br> <span class="text-primary">nuestros parceros</span>
+            </h2>
+            <p class="text-slate-500 mt-4 text-sm font-medium">Más de 500 entregas exitosas este mes en toda Colombia.</p>
+        </div>
+    </div>
+
+    <div class="flex overflow-hidden group relative">
+        <div class="flex animate-loop-scroll group-hover:paused space-x-8 px-4">
+            
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-orange-500 flex items-center justify-center text-white font-black shadow-lg">MA</div>
+                    <div>
+                        <h4 class="text-slate-900 font-bold text-sm">Mariana Arango</h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-tighter italic">Comprador verificado • Medellín</p>
+                    </div>
+                    <div class="ml-auto text-primary text-xs"><i class="fas fa-certificate"></i></div>
+                </div>
+                <div class="flex text-orange-400 text-[10px] mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"Al principio me dio como sustico por que no conocia la pag, pero pedi el humidificador y me llego super rapido a la casa. El pago contra entrega es lo mejor del mundo... recomendados!"</p>
+            </div>
+
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-slate-700 to-slate-900 flex items-center justify-center text-white font-black shadow-lg">JR</div>
+                    <div>
+                        <h4 class="text-slate-900 font-bold text-sm">Jorge Rodriguez</h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-tighter italic">Comprador verificado • Bogotá</p>
+                    </div>
+                </div>
+                <div class="flex text-orange-400 text-[10px] mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"Parce el reloj que compre salio una elegancia, la atencion x whatsapp fue de una. Lo unico fue q la transportadora se demoro un dia mas pero de resto todo 10/10."</p>
+            </div>
+
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white font-black shadow-lg">CP</div>
+                    <div>
+                        <h4 class="text-slate-900 font-bold text-sm">Carlos P.</h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-tighter italic">Comprador verificado • Manizales</p>
+                    </div>
+                </div>
+                <div class="flex text-orange-400 text-[10px] mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"Hice el pedido ayer y hoy ya lo tengo aca en la casa en Manizales, literal muy eficientes los de construventas. El producto venia bien empacado."</p>
+            </div>
+
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white font-black shadow-lg">LF</div>
+                    <div>
+                        <h4 class="text-slate-900 font-bold text-sm">Luisa Fernanda</h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-tighter italic">Comprador verificado • Cali</p>
+                    </div>
+                </div>
+                <div class="flex text-orange-400 text-[10px] mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"compre las vitaminas y me ayudaron mucho a entender como tomarlas, muy formales todos. Volvere a comprar seguro."</p>
+            </div>
+
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-green-500 to-teal-600 flex items-center justify-center text-white font-black shadow-lg">DA</div>
+                    <div>
+                        <h4 class="text-slate-900 font-bold text-sm">Diego A.</h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-tighter italic">Comprador verificado • Pereira</p>
+                    </div>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"Excelente servicio, llego lo q pedi y funciona super bien. Muchas gracias construventas!"</p>
+            </div>
+        </div>
+        
+        <div class="flex animate-loop-scroll group-hover:paused space-x-8 px-4" aria-hidden="true">
+            <div class="flex-shrink-0 w-[350px] bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-orange-500 flex items-center justify-center text-white font-black shadow-lg">MA</div>
+                    <div><h4 class="text-slate-900 font-bold text-sm">Mariana Arango</h4></div>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed italic">"Al principio me dio como sustico por que no conocia la pag..."</p>
+            </div>
+            </div>
+    </div>
+
+    <div class="container mx-auto px-6 mt-20 border-t border-slate-200 pt-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <h5 class="text-3xl font-black text-slate-900 tracking-tighter">4.9/5</h5>
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Calificación Media</p>
+            </div>
+            <div class="text-center">
+                <h5 class="text-3xl font-black text-slate-900 tracking-tighter">10k+</h5>
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Clientes Felices</p>
+            </div>
+            <div class="text-center">
+                <h5 class="text-3xl font-black text-slate-900 tracking-tighter">100%</h5>
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Pago Seguro</p>
+            </div>
+            <div class="text-center">
+                <h5 class="text-3xl font-black text-slate-900 tracking-tighter">24h</h5>
+                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Soporte Humano</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Animación de Scroll Infinito */
+    @keyframes loop-scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+    }
+    .animate-loop-scroll {
+        animation: loop-scroll 40s linear infinite;
+    }
+    .paused {
+        animation-play-state: paused;
+    }
+</style>
+<footer class="relative bg-white border-t-[10px] border-[#b91c1c] pt-20 pb-10 overflow-hidden">
+    
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-16 items-start">
+            
+            <div class="w-full lg:w-5/12">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-3 h-10 bg-primary rounded-full"></div>
+                    <h3 class="text-3xl font-black text-black uppercase italic tracking-tighter">Nuestra Central</h3>
+                </div>
+                
+                <div class="relative w-full h-[350px] md:h-[400px] rounded-[3rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-[6px] border-white ring-1 ring-slate-100">
+                    <div id="map-overlay" class="absolute inset-0 z-[1000] bg-slate-900 flex items-center justify-center transition-opacity duration-1000 pointer-events-none">
+                        <div class="text-center">
+                            <i class="fas fa-satellite text-primary text-5xl animate-bounce"></i>
+                            <p class="text-white text-xs font-black uppercase tracking-[0.4em] mt-4">Sincronizando coordenadas...</p>
+                        </div>
+                    </div>
+                    
+                    <div id="map" class="w-full h-full z-0"></div>
+                </div>
+                <div class="mt-6 flex items-center justify-center gap-2 bg-slate-50 py-3 rounded-2xl border border-slate-100">
+                    <i class="fas fa-map-marked-alt text-primary"></i>
+                    <p class="text-[12px] text-black font-black uppercase tracking-widest italic">
+                        Marinilla, Antioquia — Centro de Despachos
+                    </p>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-7/12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <div class="space-y-8">
+                    <h4 class="text-black font-black text-xl uppercase italic mb-8 border-b-4 border-primary w-fit pb-1">Contacto Directo</h4>
+                    
+                    <div class="space-y-8">
+                        <a href="tel:+573216391490" class="flex items-center gap-5 group/item bg-slate-50 p-4 rounded-2xl border-l-4 border-primary hover:bg-white hover:shadow-xl transition-all duration-300">
+                            <div class="w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white text-2xl shadow-lg group-hover/item:scale-110 transition-transform animate-bounce-slow">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[11px] text-slate-500 font-bold uppercase tracking-[0.2em]">Línea de atención</span>
+                                <span class="text-black font-black text-2xl italic tracking-tighter">+57 323 523 6954</span>
+                            </div>
+                        </a>
+
+                        <a href="mailto:construventasenlinea@hotmail.com" class="flex items-center gap-5 group/item">
+                            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-white text-xl group-hover/item:bg-primary transition-colors duration-300">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <span class="block text-[11px] text-slate-500 font-bold uppercase tracking-widest">Correo Oficial</span>
+                                <span class="text-black font-bold text-base md:text-lg break-all">darwinramirez021@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="Descargables/Terminos-Construventas.pdf" target="_blank" class="inline-flex items-center gap-3 text-black font-black text-xs uppercase tracking-widest bg-slate-100 px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all">
+                            <i class="fas fa-file-pdf text-lg"></i>
+                            Términos y Condiciones
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-between gap-10">
+                    <div>
+                        <h4 class="text-black font-black text-xl uppercase italic mb-8 border-b-4 border-primary w-fit pb-1">Comunidad</h4>
+                        <div class="flex gap-4">
+                            <a href="https://facebook.com" target="_blank" class="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white hover:bg-blue-600 transition-all shadow-lg hover:-translate-y-1">
+                                <i class="fab fa-facebook-f text-2xl"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white hover:bg-gradient-to-tr hover:from-orange-500 hover:to-purple-600 transition-all shadow-lg hover:-translate-y-1">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+    <div class="absolute top-0 right-0 w-24 h-24 bg-primary/20 blur-3xl rounded-full"></div>
+    
+    <span class="relative z-10 block text-[11px] text-primary font-black uppercase tracking-[0.3em] mb-6 text-center italic">Pagos 100% Seguros</span>
+    
+    <div class="relative z-10 flex flex-wrap justify-center items-center gap-6">
+        <div class="h-8 flex items-center justify-center">
+            <img src="Imagenes/Nequi.jpeg" alt="Nequi" class="h-full w-auto rounded-md object-contain">
+        </div>
+
+        <div class="h-6 flex items-center justify-center">
+            <img src="Imagenes/Wompi.jpg" alt="Wompi" class="h-full w-auto">
+        </div>
+
+        <div class="flex items-center gap-2 text-white font-black text-xs italic tracking-tighter">
+            <i class="fas fa-shipping-fast text-primary text-lg"></i> 
+            <span class="tracking-widest">CONTRAENTREGA</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20 pt-10 border-t-2 border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="text-center md:text-left">
+                <p class="text-[12px] text-slate-600 font-bold uppercase tracking-widest">
+                    © 2026 <span class="text-black font-black">CONSTRUVENTAS EN LÍNEA</span>
+                </p>
+                <p class="text-[10px] text-slate-400 font-medium mt-1">
+                    Operaciones desde Marinilla, Antioquia • Cobertura Nacional 🇨🇴
+                </p>
+            </div>
+            
+            <a href="https://redsapien.com/" target="_blank" class="group flex items-center gap-3 bg-black px-6 py-4 rounded-2xl hover:bg-primary transition-all duration-500 shadow-xl">
+                <span class="text-[11px] text-white/70 uppercase font-bold tracking-tighter group-hover:text-white">hecha con pasión por</span>
+                <div class="flex flex-col">
+                    <span class="text-white font-black text-lg leading-none tracking-widest">RED SAPIEN</span>
+                    <div class="h-1 w-0 group-hover:w-full bg-white transition-all duration-500"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+    /* Animación Suave de Llamada */
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.05); }
+    }
+    .animate-bounce-slow { animation: bounce-slow 2.5s ease-in-out infinite; }
+
+    /* Personalización del Mapa */
+    #map { background: #f8fafc; cursor: default; }
+    .leaflet-tile { filter: grayscale(10%) contrast(1.1); }
+    .leaflet-popup-content-wrapper { 
+        border-radius: 12px; 
+        background: #000; 
+        color: #fff; 
+        font-weight: 800; 
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+    .leaflet-popup-tip { background: #000; }
+</style>
+
+<script>
+    (function() {
+        const coords = [6.1738, -75.3344]; // Marinilla
+        
+        const map = L.map('map', {
+            center: [15, -75], // Empezamos desde muy arriba (espacio)
+            zoom: 4,
+            scrollWheelZoom: false,
+            dragging: false,
+            zoomControl: false
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: 'Construventas'
+        }).addTo(map);
+
+        const markerIcon = L.divIcon({
+            className: 'marker-pro',
+            html: `<div style="width:20px; height:20px; background:#b91c1c; border:4px solid white; border-radius:50%; box-shadow: 0 0 20px rgba(185,28,28,0.6);"></div>`,
+            iconSize: [20, 20]
+        });
+
+        L.marker(coords, { icon: markerIcon }).addTo(map)
+            .bindPopup("NUESTRA BODEGA PRINCIPAL")
+            .openPopup();
+
+        // Efecto Fly-To al scrollear
+        const mapEl = document.getElementById('map');
+        const observer = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                setTimeout(() => {
+                    document.getElementById('map-overlay').style.opacity = '0';
+                    map.flyTo(coords, 15, {
+                        duration: 4,
+                        easeLinearity: 0.1
+                    });
+                    // Habilitar interacción tras la animación
+                    map.scrollWheelZoom.enable();
+                    map.dragging.enable();
+                }, 800);
+            }
+        }, { threshold: 0.5 });
+
+        observer.observe(mapEl);
+    })();
+</script>
+</body>
+</html>
